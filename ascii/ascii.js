@@ -21,8 +21,8 @@ window.onload = function(){
    stop.onclick = stopButton; 
    stop.disabled = true; 
    
-   var amphetamine = document.getElementById("turbo");
-   amphetamine.onchange = gottaGoFast; 
+   var turbo = document.getElementById("turbo");
+   turbo.onchange = turbo; 
 };
 
 
@@ -76,7 +76,7 @@ function changeSize(){
 }
 
 
-function gottaGoFast(){
+function turbo(){
    if(this.checked){
       time = 50;
    }
