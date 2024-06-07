@@ -42,7 +42,6 @@ Student.prototype.learn = function(subject)
  console.log(this.name + " just learned " + subject);
 }
 var me = new Student();
-me.initialize("John", 25);
 
 var Teacher =  function(){};
 Teacher.prototype = new Person();
@@ -51,5 +50,9 @@ Teacher.prototype.teach = function(subject){
 }
 
 var teacher = new Teacher();
-teacher.initialize('gaurav',25);
-console.log(teacher.teach('wap'));
+
+module.exports = {
+    Person,
+    Student,
+    Teacher
+};
