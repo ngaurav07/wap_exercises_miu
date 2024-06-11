@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Growth</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: #3498db;
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+        .controls {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <label for="width">Width:</label>
+        <input type="text" id="width" value="50"><br>
+        <label for="growthAmount">Growth Amount:</label>
+        <input type="text" id="growthAmount" value="10"><br>
+        <label for="interval">Interval (ms):</label>
+        <input type="text" id="interval" value="250"><br>
+        <label for="numberCircles">Number of Circles:</label>
+        <input type="text" id="numberCircles" value="1"><br>
+        <button id="startButton">Start</button>
+    </div>
+    <div id="container"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#startButton').click(function () {
+                const width = parseInt($('#width').val());
+                const growthAmount = parseInt($('#growthAmount').val());
+                const interval = parseInt($('#interval').val());
+                const numberCircles = parseInt($('#numberCircles').val());
+
+                for (let i = 0; i < numberCircles; i++) {
+                    createCircle(width, growthAmount, interval);
+                }
+            });
+
+            function createCircle(initialWidth, growthAmount, interval) {
+                const $circle = $('<div>', {
+                    class: 'circle',
+                    css: {
+                        width: initialWidth + 'px',
+                        height: initialWidth + 'px',
+                        top: Math.random() * (window.innerHeight - initialWidth) + 'px',
+                        left: Math.random() * (window.innerWidth - initialWidth) + 'px'
+                    }
+                }).appendTo('#container');
+
+                const growCircle = setInterval(function () {
+                    const newWidth = $circle.width() + growthAmount;
+                    $circle.css({
+                        width: newWidth + 'px',
+                        height: newWidth + 'px'
+                    });
+                }, interval);
+
+                $circle.click(function () {
+                    clearInterval(growCircle);
+                    $(this).remove();
+                });
+
+                $circle.mousemove(function () {
+                    $(this).css('opacity', 0.5);
+                });
+
+                $circle.mouseleave(function () {
+                    $(this).css('opacity', 1);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
